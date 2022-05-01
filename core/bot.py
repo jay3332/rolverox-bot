@@ -26,6 +26,9 @@ class Rolverox(Bot):
                 await self.load_extension(f'cogs.{file[:-3]}')
 
         await self.load_extension('jishaku')
+
+    async def setup_hook(self) -> None:
+        await self.load_all_extensions()
     
     async def on_ready(self) -> None:
         print(f'Logged in as {str(self.user)}')
