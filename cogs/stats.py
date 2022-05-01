@@ -6,6 +6,8 @@ from core.cog import Cog
 class Stats(Cog):
     @loop(minutes=5)
     async def update_stats(self) -> None:
+        await self.bot.wait_until_ready()
+
         guild = self.bot.get_guild(969411991506661449)
         assert guild is not None
 
