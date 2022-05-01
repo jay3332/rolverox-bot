@@ -70,21 +70,14 @@ class MetaTask(CogMeta):
 
 
 class Cog(_Cog, metaclass=MetaTask):
-    if TYPE_CHECKING:
-        def _load_tasks(self) -> None:
-            ...
-        
-        def _unload_tasks(self) -> None:
-            ...
-
     def __init__(self, bot: Rolverox) -> None:
         self.bot = bot
     
     def cog_load(self) -> None:
-        self._load_tasks()
+        self.__class__._load_tasks(self)
     
     def cog_unload(self) -> None:
-        self._unload_tasks()
+        self.__class__._unload_tasks()
     
     @classmethod
     async def setup(cls, bot: Rolverox) -> None:
