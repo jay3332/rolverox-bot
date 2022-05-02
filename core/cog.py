@@ -25,18 +25,19 @@ class MetaTask(CogMeta):
     """
     def __new__(cls, name: Any, bases: Any, attrs: Any, **kwargs: Any) -> Self:
         new_cls = super().__new__(cls, name, bases, attrs)
-        _inner_tasks = []
+        _inner_tasks = [
+            value
+            for _, value in attrs.items()
+            if issubclass(value.__class__, Loop)
+        ]
 
-        for _, value in attrs.items():
-            if issubclass(value.__class__, Loop):
-                _inner_tasks.append(value)
 
         new_cls.__tasks__ = _inner_tasks  # type: ignore
 
         return new_cls
 
-    def _unload_tasks(cls) -> None:
-        for task in cls.__tasks__:
+    def _unload_tasks(self) -> None:
+        for task in self.__tasks__:
             coro = task.__dict__.get('coro')
             if not coro:
                 continue
