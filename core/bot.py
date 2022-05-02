@@ -18,7 +18,7 @@ class Rolverox(Bot):
             command_prefix='r!',
             intents=Intents.all(),
         )
-        self.owner_ids = {482665245928849408, 590323594744168494, 677252870722027549}
+        self.owner_ids = {414556245178056706, 482665245928849408, 590323594744168494, 677252870722027549}
 
     async def load_all_extensions(self) -> None:
         for file in os.listdir('./cogs'):
